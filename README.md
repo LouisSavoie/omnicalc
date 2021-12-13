@@ -1,3 +1,3 @@
 # Omnicalc
 
-A set of simple web based calculators.
+A set of simple web-based calculators.
