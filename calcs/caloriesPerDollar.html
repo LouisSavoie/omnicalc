@@ -25,8 +25,14 @@
 
           <!-- Calories Input -->
           <div class="mb-3">
-            <label for="caloriesInput" class="form-label">Calories</label>
+            <label for="caloriesInput" class="form-label">Calories Per Serving</label>
             <input type="number" class="form-control" id="caloriesInput">
+          </div>
+
+          <!-- Servings Input -->
+          <div class="mb-3">
+            <label for="servingsInput" class="form-label">Servings (Empty = 1)</label>
+            <input type="number" class="form-control" id="servingsInput">
           </div>
 
           <!-- Price Input -->
@@ -35,7 +41,19 @@
             <input type="number" class="form-control" id="priceInput">
           </div>
 
-          <div class="row">
+          <!-- Tax Checkbox -->
+          <div class="form-check mb-3">
+            <label for="taxCheckbox" class="form-label">Plus Tax? (MI 6%)</label>
+            <input type="checkbox" class="form-check-input" id="taxCheckbox">
+          </div>
+
+          <!-- Label Input -->
+          <div class="mb-3">
+            <label for="labelInput" class="form-label">Label (Optional)</label>
+            <input type="text" class="form-control" id="labelInput">
+          </div>
+
+          <div class="row mb-3">
 
             <!-- Calculate Button -->
             <div class="col-4">
@@ -47,6 +65,20 @@
               <div class="text-center align-middle"><span class="fw-bold" id="resultDisplay"></span> <span>Calories/Dollar</span></div>
             </div>
 
+          </div>
+
+          <div class="row">
+            <div class="col">
+
+              <!-- Clear History Button -->
+              <div class="col mb-3">
+                <button type="button" class="btn btn-primary" id="clearHistoryButton">Clear History</button>
+              </div>
+
+              <!-- Results History -->
+              <ul id="resultsHistoryDisplay" class="list-group text-center"></ul>
+
+            </div>
           </div>
 
         </form>
