@@ -1,13 +1,14 @@
 // SELECT DOM ELEMENTS
-const priceInput = document.querySelector('#priceInput');
-const caloriesInput = document.querySelector('#caloriesInput');
-const servingsInput = document.querySelector('#servingsInput');
-const taxCheckbox = document.querySelector('#taxCheckbox');
-const calcButton = document.querySelector('#calcButton');
+const priceInput = document.querySelector('#priceInput')
+const caloriesInput = document.querySelector('#caloriesInput')
+const servingsInput = document.querySelector('#servingsInput')
+const taxCheckbox = document.querySelector('#taxCheckbox')
+const calcButton = document.querySelector('#calcButton')
 const resultDisplay = document.querySelector('#resultDisplay')
 const resultsHistoryDisplay = document.querySelector('#resultsHistoryDisplay')
+const clearHistoryButton = document.querySelector('#clearHistoryButton')
 
-const log = []
+let log = []
 
 // CLICK EVENTS
 calcButton.addEventListener('click', function() {
@@ -28,4 +29,9 @@ calcButton.addEventListener('click', function() {
   log.forEach(function(value) {
     resultsHistoryDisplay.innerHTML += `<li class="list-group-item">(${value.cals}*${value.servs})/${value.price} = <strong>${value.res}</strong></li>`
   })
+})
+
+clearHistoryButton.addEventListener('click', function() {
+  log = []
+  resultsHistoryDisplay.innerHTML = ''
 })
