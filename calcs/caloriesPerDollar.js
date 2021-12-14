@@ -13,16 +13,15 @@ let log = []
 // CLICK EVENTS
 calcButton.addEventListener('click', function() {
   // Adjust Price if Tax
-  let ifTaxPrice = 0
-  if (taxCheckbox.checked == true) {
-    ifTaxPrice = Math.round(((priceInput.value * 1.06) + Number.EPSILON) * 100) / 100
-  } else {
-    ifTaxPrice = priceInput.value
-  }
+  let adjustedPrice
+  taxCheckbox.checked == true ? adjustedPrice = Math.round(((priceInput.value * 1.06) + Number.EPSILON) * 100) / 100 : adjustedPrice = priceInput.value
+  // Adjust Servings if blank
+  let adjustedServings
+  servingsInput.value == '' ? adjustedServings = 1 : adjustedServings = servingsInput.value
   // Calculate
-  let result = Math.floor((caloriesInput.value * servingsInput.value) / ifTaxPrice)
+  let result = Math.floor((caloriesInput.value * adjustedServings) / adjustedPrice)
   // Add Results to Log
-  log.push({ cals:caloriesInput.value, servs: servingsInput.value, price: ifTaxPrice, res: result })
+  log.push({ cals:caloriesInput.value, servs: adjustedServings, price: adjustedPrice, res: result })
   // Display Results
   resultDisplay.innerHTML = result
   resultsHistoryDisplay.innerHTML = ''
@@ -33,5 +32,6 @@ calcButton.addEventListener('click', function() {
 
 clearHistoryButton.addEventListener('click', function() {
   log = []
+  resultDisplay.innerHTML = ''
   resultsHistoryDisplay.innerHTML = ''
 })
