@@ -7,6 +7,7 @@ const calcButton = document.querySelector('#calcButton')
 const resultDisplay = document.querySelector('#resultDisplay')
 const resultsHistoryDisplay = document.querySelector('#resultsHistoryDisplay')
 const clearHistoryButton = document.querySelector('#clearHistoryButton')
+const labelInput = document.querySelector('#labelInput')
 
 let log = []
 
@@ -21,12 +22,12 @@ calcButton.addEventListener('click', function() {
   // Calculate
   let result = Math.floor((caloriesInput.value * adjustedServings) / adjustedPrice)
   // Add Results to Log
-  log.push({ cals:caloriesInput.value, servs: adjustedServings, price: adjustedPrice, res: result })
+  log.push({ label: labelInput.value, cals:caloriesInput.value, servs: adjustedServings, price: adjustedPrice, res: result })
   // Display Results
   resultDisplay.innerHTML = result
   resultsHistoryDisplay.innerHTML = ''
   log.forEach(function(value) {
-    resultsHistoryDisplay.innerHTML += `<li class="list-group-item">(${value.cals}*${value.servs})/${value.price} = <strong>${value.res}</strong></li>`
+    resultsHistoryDisplay.innerHTML += `<li class="list-group-item"><strong>${value.label}</strong> (${value.cals}*${value.servs})/${value.price} = <strong>${value.res}</strong></li>`
   })
 })
 
