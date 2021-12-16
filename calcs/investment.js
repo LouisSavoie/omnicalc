@@ -1,6 +1,6 @@
 // SELECT DOM ELEMENTS
 const initialInput = document.querySelector('#initialInput')
-// const additionalInput = document.querySelector('#additionalInput')
+const contributionsInput = document.querySelector('#contributionsInput')
 // const frequencyInput = document.querySelector('#frequencyInput')
 const interestInput = document.querySelector('#interestInput')
 const lengthInput = document.querySelector('#lengthInput')
@@ -15,17 +15,21 @@ let log = []
 
 // CLICK EVENTS
 calcButton.addEventListener('click', function() {
-  const adjustedInterest = interestInput.value * .01
+  const adjustedInterest = +interestInput.value * .01
   // Calculate
-  // P principal * (1 + (r interest rate / n number of times interest compounds per t)) * (n * t time) = A amount
-  let result = Math.round(((initialInput.value * (1 + (adjustedInterest / 1)) ** (1 * lengthInput.value)) + Number.EPSILON) * 100) / 100
+  let result = +initialInput.value
+  for (let i = +lengthInput.value; i > 0; i--) {
+    result += +contributionsInput.value
+    result += result * +adjustedInterest
+  }
+  result = Math.round((result + Number.EPSILON) * 100) / 100
   // Add Results to Log
-  log.push({ label: labelInput.value, initial:initialInput.value, length: lengthInput.value, res: result })
+  log.push({ label: labelInput.value, initial: initialInput.value, contributions: contributionsInput.value, length: lengthInput.value, res: result })
   // Display Results
   resultDisplay.innerHTML = result
   resultsHistoryDisplay.innerHTML = ''
   log.forEach(function(value) {
-    resultsHistoryDisplay.innerHTML += `<li class="list-group-item"><strong>${value.label}</strong> $${value.initial} for ${value.length} years @ ${interestInput.value}% = <strong>$${value.res}</strong></li>`
+    resultsHistoryDisplay.innerHTML += `<li class="list-group-item"><strong>${value.label}</strong> $${value.initial} + $${value.contributions} for ${value.length} years @ ${interestInput.value}% = <strong>$${value.res}</strong></li>`
   })
 })
 
