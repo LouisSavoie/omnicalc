@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- Additional meta tags -->
-  <title>Omnicalc - Investment</title>
+  <title>Omnicalc - Calories Per Dollar</title>
   <!-- Favicons -->
   <link rel="apple-touch-icon" sizes="180x180" href="https://louissavoie.github.io/omnicalc/favicon_io/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="https://louissavoie.github.io/omnicalc/favicon_io/favicon-32x32.png">
@@ -24,45 +24,21 @@
     <div class="row justify-content-center mt-3 mb-3">
 
       <div class="col-10 col-sm-8 col-md-6 col-lg-4 col-xl-3">
-        <h2 class="mb-3 text-center">Investment</h2>
+        <h2 class="mb-3 text-center">Gross Profit</h2>
 
         <form>
 
-          <!-- Initial Input -->
+          <!-- Cost Input -->
           <div class="mb-3">
-            <label for="initialInput" class="form-label">Initial Investment</label>
-            <input type="number" class="form-control" id="initialInput">
+            <label for="costInput" class="form-label">Cost</label>
+            <input type="number" class="form-control" id="costInput">
           </div>
 
-          <!-- Additional Input -->
+          <!-- Sales Input -->
           <div class="mb-3">
-            <label for="contributionsInput" class="form-label">Contributions (Per Year, Start of Year)</label>
-            <input type="number" class="form-control" id="contributionsInput">
+            <label for="salesInput" class="form-label">Sales</label>
+            <input type="number" class="form-control" id="salesInput">
           </div>
-
-          <!-- Frequency Input -->
-          <!-- <div class="mb-3">
-            <label for="frequencyInput" class="form-label">Frequency of Contributions</label>
-            <input type="number" class="form-control" id="frequencyInput">
-          </div> -->
-
-          <!-- Interest Input -->
-          <div class="mb-3">
-            <label for="interestInput" class="form-label">Interest Rate (Annual %)</label>
-            <input type="number" class="form-control" id="interestInput">
-          </div>
-
-          <!-- Length Input -->
-          <div class="mb-3">
-            <label for="lengthInput" class="form-label">Length of Investment (Years)</label>
-            <input type="number" class="form-control" id="lengthInput">
-          </div>
-
-          <!-- Percent Input -->
-          <!-- <div class="mb-3">
-            <label for="percentInput" class="form-label">Percent of Result (Optional)</label>
-            <input type="number" class="form-control" id="percentInput">
-          </div> -->
 
           <!-- Label Input -->
           <div class="mb-3">
@@ -79,12 +55,12 @@
             
             <!-- Result Display -->
             <div class="col d-flex align-items-center justify-content-center">
-              <div class="text-center align-middle"><span>$</span><span class="fw-bold" id="resultDisplay"></span></div>
+              <div class="text-center align-middle"><span class="fw-bold" id="resultDisplay"></span></div>
             </div>
 
           </div>
 
-          <div class="row">
+          <div class="row mb-3">
             <div class="col">
 
               <!-- Clear History Button -->
@@ -115,6 +91,6 @@
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
   <!-- My JS -->
-  <script src="investment.js"></script>
+  <script src="grossProfit.js"></script>
 </body>
 </html>
