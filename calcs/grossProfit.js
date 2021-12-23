@@ -14,9 +14,10 @@ calcButton.addEventListener('click', function() {
   // Calculate
   let grossValue = Math.round(((salesInput.value - costInput.value) + Number.EPSILON) * 100) / 100
   let grossPercent = Math.round(((grossValue / salesInput.value) + Number.EPSILON) * 100) / 100
-  let result = `$${grossValue}, ${grossPercent}%`
+  let adjustedPercent = grossPercent * 100
+  let result = `$${grossValue} / ${adjustedPercent}%`
   // Add Results to Log
-  log.push({ label: labelInput.value, res: result })
+  log.push({ label: labelInput.value + ' =', res: result })
   // Display Results
   resultDisplay.innerHTML = result
   resultsHistoryDisplay.innerHTML = ''
