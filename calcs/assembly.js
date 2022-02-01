@@ -21,48 +21,40 @@ function processArgs(args) {
       }
     }
   })
-  console.log(args)
   return args
 }
 
 // INSTRUCTIONS
-function add(args) {
+function addi(args) {
   val = args[1] + args[2]
   args[3] == 'a' ? regA = val : regB = val
-  console.log(`${regA}, ${regB}, ${regO}`)
 }
 
-function sub(args) {
+function subi(args) {
   val = args[1] - args[2]
   args[3] == 'a' ? regA = val : regB = val
-  console.log(`${regA}, ${regB}, ${regO}`)
 }
 
-function mul(args) {
+function muli(args) {
   val = args[1] * args[2]
   args[3] == 'a' ? regA = val : regB = val
-  console.log(`${regA}, ${regB}, ${regO}`)
 }
 
-function div(args) {
+function divi(args) {
   val = args[1] / args[2]
   args[3] == 'a' ? regA = val : regB = val
-  console.log(`${regA}, ${regB}, ${regO}`)
 }
 
-function mod(args) {
+function modi(args) {
   val = args[1] % args[2]
   args[3] == 'a' ? regA = val : regB = val
-  console.log(`${regA}, ${regB}, ${regO}`)
 }
 
-function out(arg) {
+function send(arg) {
   regO = arg
-  console.log(`${regA}, ${regB}, ${regO}`)
 }
 
 // ToDo: label, if, jump, true jump, false jump
-// LBL, CND, JMP, TJP, FJP
 
 // CLICK EVENTS
 calcButton.addEventListener('click', function() {
@@ -75,23 +67,23 @@ calcButton.addEventListener('click', function() {
   lines.forEach(line => {
     const args = processArgs(line.split(' '))
     switch (args[0]) {
-      case 'add':
-        add(args)
+      case 'addi':
+        addi(args)
         break
-      case 'sub':
-        sub(args)
+      case 'subi':
+        subi(args)
         break
-      case 'mul':
-        div(args)
+      case 'muli':
+        divi(args)
         break
-      case 'div':
-        mul(args)
+      case 'divi':
+        muli(args)
         break
-      case 'mod':
-        mod(args)
+      case 'modi':
+        modi(args)
         break
-      case 'out':
-        out(args[1])
+      case 'send':
+        send(args[1])
         break
       default:
         break
