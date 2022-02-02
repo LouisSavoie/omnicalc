@@ -35,39 +35,38 @@ function processArgs(args) {
 }
 
 // INSTRUCTIONS
-function addi(args) {
-  val = args[1] + args[2]
+function math(args) {
+  switch (args[0]) {
+    case 'addi':
+      val = args[1] + args[2]
+      break
+    case 'subi':
+      val = args[1] - args[2]
+      break
+    case 'muli':
+      val = args[1] * args[2]
+      break
+    case 'divi':
+      val = args[1] / args[2]
+      break
+    case 'modi':
+      val = args[1] % args[2]
+      break
+    default:
+      break
+  }
   args[3] == 'a' ? regA = val : regB = val
-}
-
-function subi(args) {
-  val = args[1] - args[2]
-  args[3] == 'a' ? regA = val : regB = val
-}
-
-function muli(args) {
-  val = args[1] * args[2]
-  args[3] == 'a' ? regA = val : regB = val
-  console.log(`A:${regA}, B:${regB}, O:${regO}`)
-}
-
-function divi(args) {
-  val = args[1] / args[2]
-  args[3] == 'a' ? regA = val : regB = val
-  console.log(`A:${regA}, B:${regB}, O:${regO}`)
-}
-
-function modi(args) {
-  val = args[1] % args[2]
-  args[3] == 'a' ? regA = val : regB = val
+  console.log(`Math: A:${regA}, B:${regB}, O:${regO}`)
 }
 
 function copy(args) {
   args[2] == 'a' ? regA = args[1] : regB = args[1]
+  // console.log(`Copy: A:${regA}, B:${regB}, O:${regO}`)
 }
 
 function send(arg) {
   regO = arg
+  console.log(`Send: A:${regA}, B:${regB}, O:${regO}`)
 }
 
 // ToDo: mark, test, jump, tjmp, fjmp, copy, rand
@@ -79,25 +78,17 @@ calcButton.addEventListener('click', function() {
   regB = 0
   regO = 0
   let lines = codeInput.value.split('\n')
-  console.log(lines)
+  // console.log(lines)
   lines.forEach(line => {
     const args = processArgs(line.split(' '))
     console.log(args)
     switch (args[0]) {
       case 'addi':
-        addi(args)
-        break
       case 'subi':
-        subi(args)
-        break
       case 'muli':
-        muli(args)
-        break
       case 'divi':
-        divi(args)
-        break
       case 'modi':
-        modi(args)
+        math(args)
         break
       case 'copy':
         copy(args)
