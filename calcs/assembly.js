@@ -3,7 +3,8 @@ const codeInput = document.querySelector('#codeInput')
 const calcButton = document.querySelector('#calcButton')
 const resultDisplay = document.querySelector('#resultDisplay')
 
-let lines = []
+// PROGRAM DATA
+let program = []
 let marks = {}
 
 // REGISTERS
@@ -11,36 +12,103 @@ let regA = 0
 let regB = 0
 let regO = 0
 
-// PROCESS ARGS
-function processArgs(args) {
-  if (args[1] == 'mark') {
-    args[0] = parseInt(args[0])
-  } else if (args.length == 5) {
-    args.forEach((arg, index) => {
+// PARSING AND EXECUTION
+function parseProgram(input) {
+  let lines = input.toLowerCase().split('\n')
+  lines = numberLines(lines)
+  // console.log('post numberLines: ' + lines)
+  lines.forEach((line) => {
+    line = line.split(' ')
+    // console.log('line post split: ' + line)
+    line = parseArgs(line)
+    // console.log('line post parseArgs: ' + line)
+    program.push(line)
+  })
+  // console.log('post parseArgs: ' + program)
+}
+
+function numberLines(lines) {
+  let i = 1
+  lines.forEach((line, index) => {
+    lines[index] = `${index} ${line}`
+    i++
+  })
+  return lines
+}
+
+function parseArgs(line) {
+  if (line[1] == 'mark') {
+    line[0] = parseInt(line[0])
+  } else if (line.length == 5) {
+    line.forEach((arg, index) => {
+      if (index != 1 && index != 4 && arg != 'a' && arg != 'b') {
+        line[index] = parseInt(arg)
+      }
+    })
+  } else {
+    line.forEach((arg, index) => {
+      if (index != 1 && index != 3 && arg != 'a' && arg != 'b') {
+        line[index] = parseInt(arg)
+      }
+    })
+  }
+  return line
+}
+
+function runProgram() {
+  program.forEach((line) => {
+    line = parseRegisters(line)
+    // console.log('post parseRegisters line: ' + line)
+    executeLine(line)
+  })
+}
+
+function parseRegisters(line) {
+  if (line.length == 5) {
+    line.forEach((arg, index) => {
       if (index !== 1 && index !== 4) {
         if (arg == 'a') {
-          args[index] = regA
+          line[index] = regA
         } else if (arg == 'b') {
-          args[index] = regB
-        } else {
-          args[index] = parseInt(arg)
+          line[index] = regB
         }
       }
     })
   } else {
-    args.forEach((arg, index) => {
+    line.forEach((arg, index) => {
       if (index !== 1 && index !== 3) {
         if (arg == 'a') {
-          args[index] = regA
+          line[index] = regA
         } else if (arg == 'b') {
-          args[index] = regB
-        } else {
-          args[index] = parseInt(arg)
+          line[index] = regB
         }
       }
     })
   }
-  return args
+  return line
+}
+
+function executeLine(line) {
+  switch (line[1]) {
+    case 'addi':
+    case 'subi':
+    case 'muli':
+    case 'divi':
+    case 'modi':
+      math(line)
+      break
+    case 'copy':
+      copy(line)
+      break
+    case 'mark':
+      mark(line)
+      break
+    case 'send':
+      send(line[2])
+      break
+    default:
+      break
+  }
 }
 
 // INSTRUCTIONS
@@ -87,38 +155,13 @@ function send(arg) {
 
 // CLICK EVENTS
 calcButton.addEventListener('click', function() {
-  lines = codeInput.value.split('\n')
-  // console.log('lines: ' + lines)
-  let i = 1
-  lines.forEach(line => {
-    line = `${i} ${line}`
-    i++
-    const args = processArgs(line.split(' '))
-    // console.log('args: ' + args)
-    switch (args[1]) {
-      case 'addi':
-      case 'subi':
-      case 'muli':
-      case 'divi':
-      case 'modi':
-        math(args)
-        break
-      case 'copy':
-        copy(args)
-        break
-      case 'mark':
-        mark(args)
-        break
-      case 'send':
-        send(args[2])
-        break
-      default:
-        break
-    }
-  })
+  parseProgram(codeInput.value)
+  // console.log('Program' + JSON.stringify(program))
+  runProgram()
   // Display Results
   resultDisplay.innerHTML = regO
   // Reset
+  program = []
   marks = {}
   regA = 0
   regB = 0
