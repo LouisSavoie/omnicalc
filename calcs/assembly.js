@@ -16,18 +16,18 @@ let regO = 0
 function parseProgram(input) {
   let lines = input.toLowerCase().split('\n')
   lines = numberLines(lines)
-  console.log('post numberLines: ' + lines)
+  // console.log('post numberLines: ' + lines)
   lines.forEach((line) => {
     line = line.split(' ')
-    console.log('line post split: ' + line)
+    // console.log('line post split: ' + line)
     line = parseArgs(line)
-    console.log('line post parseArgs: ' + line)
+    // console.log('line post parseArgs: ' + line)
     program.push(line)
     if (line[1] == 'mark') {
       mark(line)
     }
   })
-  console.log('post parseArgs: ' + program)
+  // console.log('post parseArgs: ' + program)
 }
 
 function numberLines(lines) {
@@ -40,8 +40,7 @@ function numberLines(lines) {
 }
 
 function parseArgs(line) {
-  // if (line[1] == 'mark' || line[1] == 'jump') {
-  if (line[1] == 'mark') {
+  if (line[1] == 'mark' || line[1] == 'jump') {
     line[0] = parseInt(line[0])
   } else if (line.length == 5) {
     line.forEach((arg, index) => {
@@ -59,11 +58,16 @@ function parseArgs(line) {
   return line
 }
 
-function runProgram() {
-  program.forEach((line) => {
+function runProgram(start) {
+  programRange = program.slice(start)
+  programRange.every((line) => {
     line = parseRegisters(line)
-    console.log('post parseRegisters line: ' + line)
+    // console.log('post parseRegisters line: ' + line)
     executeLine(line)
+    if (line[1] == 'jump') {
+      return false
+    }
+    return true
   })
 }
 
@@ -137,27 +141,28 @@ function math(args) {
       break
   }
   args[4] == 'a' ? regA = val : regB = val
-  console.log(`Math: A:${regA}, B:${regB}, O:${regO}`)
+  // console.log(`Math: A:${regA}, B:${regB}, O:${regO}`)
 }
 
 function copy(args) {
   args[3] == 'a' ? regA = args[2] : regB = args[2]
-  console.log(`Copy: A:${regA}, B:${regB}, O:${regO}`)
+  // console.log(`Copy: A:${regA}, B:${regB}, O:${regO}`)
 }
 
 function mark(args) {
   marks[args[2]] = args[0]
-  console.log('marks: ' + JSON.stringify(marks))
+  // console.log('marks: ' + JSON.stringify(marks))
 }
 
-// function jump(args) {
-//   const jumpPointer = marks[args[2]]
-//   console.log('jumpPointer: ' + jumpPointer)
-// }
+function jump(args) {
+  const jumpPointer = marks[args[2]]
+  // console.log('jumpPointer: ' + jumpPointer)
+  runProgram(jumpPointer + 1)
+}
 
 function send(arg) {
   regO = arg
-  console.log(`Send: A:${regA}, B:${regB}, O:${regO}`)
+  // console.log(`Send: A:${regA}, B:${regB}, O:${regO}`)
 }
 
 // ToDo: test, jump, tjmp, fjmp, rand
@@ -165,8 +170,8 @@ function send(arg) {
 // CLICK EVENTS
 calcButton.addEventListener('click', function() {
   parseProgram(codeInput.value)
-  console.log('Program' + JSON.stringify(program))
-  runProgram()
+  // console.log('Program' + JSON.stringify(program))
+  runProgram(0)
   // Display Results
   resultDisplay.innerHTML = regO
   // Reset
